@@ -14,17 +14,11 @@ public:
 	MOCK_METHOD(int, getPrice, (string), (override));
 };
 
-TEST(TradingSystem, SelectStockBroker) {
-	TradingSystem system;
-	StockBroker* driver = new MockDriver();
-
-	system.selectStockBroker(driver);
-}
-
 class TradingSystemFixture : public Test {
 public:
 	void SetUp() override {
 		system.selectStockBroker(&STOCK_BROKER);
+		assertNullException();
 	}
 
 	const string STOCK_NAME = "NONAME";
@@ -32,8 +26,22 @@ public:
 
 	TradingSystem system;
 	MockDriver STOCK_BROKER;
+
+private:
+	void assertNullException() {
+		EXPECT_THAT(system.getBroker(), NotNull());
+	}
 };
 
-TEST_F(TradingSystemFixture, SelectStockBroker) {
-	EXPECT_THAT(system.getBroker(), NotNull());
+TEST_F(TradingSystemFixture, sample) {
+	EXPECT_CALL(STOCK_BROKER, getPrice(_))
+		.WillRepeatedly(Return(STOCK_PRICE));
+	EXPECT_EQ(system.getPrice(STOCK_NAME), STOCK_PRICE);
+}
+
+TEST(TradingSystem, SelectStockBroker) {
+	TradingSystem system;
+	StockBroker* driver = new MockDriver();
+
+	system.selectStockBroker(driver);
 }

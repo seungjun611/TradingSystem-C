@@ -21,7 +21,7 @@ public:
 		return true;
 	}
 	int getPrice(string stockCode) {
-		_broker->getPrice(stockCode);
+		return _broker->getPrice(stockCode);
 	}
 	StockBroker* getBroker() {
 		return _broker;
