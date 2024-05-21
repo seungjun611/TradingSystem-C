@@ -102,4 +102,3 @@ public:
 private:
 	StockBroker* _broker{ nullptr };
 };
-
