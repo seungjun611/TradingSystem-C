@@ -33,3 +33,7 @@ public:
 	TradingSystem system;
 	MockDriver STOCK_BROKER;
 };
+
+TEST_F(TradingSystemFixture, SelectStockBroker) {
+	EXPECT_THAT(system.getBroker(), NotNull());
+}

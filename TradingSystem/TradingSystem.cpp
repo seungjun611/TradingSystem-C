@@ -23,6 +23,9 @@ public:
 	int getPrice(string stockCode) {
 		_broker->getPrice(stockCode);
 	}
+	StockBroker* getBroker() {
+		return _broker;
+	}
 
 private:
 	StockBroker* _broker{ nullptr };
