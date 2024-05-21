@@ -30,6 +30,10 @@ public:
 		_broker->getPrice(stockCode);
 	}
 
+	void buyNiceTiming(std::string stockCode, int count) {
+
+	}
+
 	void sellNiceTiming(std::string stockCode, int count) {
 		std::deque<int> prices;
 		for (int i = 0; i < 3; ++i) {
