@@ -33,10 +33,6 @@ public:
 		return _broker;
 	}
 
-	void buyNiceTiming(std::string stockCode, int count) {
-
-	}
-
 	void sellNiceTiming(std::string stockCode, int count) {
 		std::deque<int> prices;
 		for (int i = 0; i < 3; ++i) {
@@ -62,6 +58,44 @@ public:
 		}
 		else {
 			std::cout << "No sell." << std::endl;
+		}
+	}
+
+	int checkPrice3Times(int price_list[3], string item) {
+		int priceNow = 0;
+		for (int i = 0; i < 3; i++) {
+			price_list[i] = getPrice(item);
+			priceNow = price_list[i];
+		}
+
+		return priceNow;
+	}
+
+	int checkPriceUp(int price_list[3]) {
+		int priceUpCount = 0;
+		for (int i = 1; i < 3; i++) {
+			if (price_list[i - 1] == 0 || price_list[i] == 0) {
+				throw exception("Item Price is 0!!");
+			}
+
+			if (price_list[i - 1] < price_list[i]) {
+				priceUpCount++;
+			}
+		}
+
+		return priceUpCount;
+	}
+
+	void buyNiceTiming(string item, int money)
+	{
+		int price_list[3];
+		int priceNow = 0;
+		priceNow = checkPrice3Times(price_list, item);
+
+		int priceUpCount = checkPriceUp(price_list);
+
+		if (priceUpCount == 2) {
+			buy(item, priceNow, money / priceNow);
 		}
 	}
 

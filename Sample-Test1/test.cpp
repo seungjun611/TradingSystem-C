@@ -14,6 +14,23 @@ public:
 	MOCK_METHOD(int, getPrice, (string), (override));
 };
 
+TEST(TradingSystem, buyNiceTimingGetPrice3times) {
+	TradingSystem system;
+	MockDriver mock;
+	system.selectStockBroker(&mock);
+	
+	EXPECT_CALL(mock, getPrice(string("Samsung")))
+		.Times(3)
+		.WillOnce(Return(10))
+		.WillOnce(Return(20))
+		.WillOnce(Return(30))
+		;
+
+	system.buyNiceTiming(string("Samsung"), 30);
+}
+
+
+TEST(TradingSystem, buyNiceTimingSuccess) {
 class TradingSystemFixture : public Test {
 public:
 	void SetUp() override {
@@ -52,6 +69,20 @@ TEST(TradingSystem, SellNiceTiming)
 	MockDriver mock;
 	system.selectStockBroker(&mock);
 
+	EXPECT_CALL(mock, getPrice(string("Samsung")))
+		.Times(3)
+		.WillOnce(Return(10))
+		.WillOnce(Return(20))
+		.WillOnce(Return(30))
+		;
+
+	EXPECT_CALL(mock, buy(string("Samsung"), 30, 1))
+		.Times(1);
+
+	system.buyNiceTiming(string("Samsung"), 30);
+}
+
+TEST(TradingSystem, buyNiceTimingFail) {
 	EXPECT_CALL(mock, getPrice(string("Apple.Inc")))
 		.WillOnce(Return(100))
 		.WillOnce(Return(90))
@@ -69,6 +100,30 @@ TEST(TradingSystem, BuyNiceTiming)
 	MockDriver mock;
 	system.selectStockBroker(&mock);
 
+	EXPECT_CALL(mock, getPrice(string("Samsung")))
+		.Times(3)
+		.WillOnce(Return(10))
+		.WillOnce(Return(20))
+		.WillOnce(Return(20))
+		;
+
+	system.buyNiceTiming(string("Samsung"), 30);
+}
+
+
+TEST(TradingSystem, buyNiceTimingException) {
+	TradingSystem system;
+	MockDriver mock;
+	system.selectStockBroker(&mock);
+
+	EXPECT_CALL(mock, getPrice(string("Samsung")))
+		.Times(3)
+		.WillOnce(Return(10))
+		.WillOnce(Return(20))
+		.WillOnce(Return(0))
+		;
+	
+	EXPECT_THROW(system.buyNiceTiming(string("Samsung"), 30), exception);
 	EXPECT_CALL(mock, getPrice(string("Apple.Inc")))
 		.WillOnce(Return(100))
 		.WillOnce(Return(120))
