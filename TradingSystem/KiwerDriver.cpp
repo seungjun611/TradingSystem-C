@@ -1,32 +1,24 @@
+#pragma once
 #include "KiwerAPI.cpp"
 #include "StockBroker.cpp"
-#include <string>
-
 
 class KiwerDriver : public StockBroker
 {
-private:
-	KiwerAPI* kiwerAPI;
-
 public:
-	KiwerDriver(KiwerAPI* kiwerAPI)
+	void login(std::string id, std::string pw)
 	{
-		this->kiwerAPI = kiwerAPI;
+
 	}
-	void login(std::string id, std::string pw) override
+	void buy(std::string stockCode, int price, int count)
 	{
-		kiwerAPI->login(id, pw);
+
 	}
-	void buy(std::string stockCode, int price, int count) override
+	void sell(std::string stockCode, int price, int count)
 	{
-		kiwerAPI->buy(stockCode, price, count);
+
 	}
-	void sell(std::string stockCode, int price, int count) override
+	int getPrice(std::string stockCode)
 	{
-		kiwerAPI->sell(stockCode, price, count);
-	}
-	int getPrice(std::string stockCode) override
-	{
-		kiwerAPI->currentPrice(stockCode);
+
 	}
 };

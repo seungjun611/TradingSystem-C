@@ -1,26 +1,27 @@
+#pragma once
 #include "StockBroker.cpp"
+#include "KiwerDriver.cpp"
+#include "NemoDriver.cpp"
 #include <string>
 using namespace std;
 
 class TradingSystem
 {
 public:
-	void selectStockBroker(StockBroker* broker) {
-		_broker = broker;
+	void selectStockBrocker(StockBroker* broker);
+	bool login(string id, string password)
+	{
+		return true;
 	}
-	bool login(string id, string password) {
-		_broker->login(id, password);
-	}
-	bool buy(string stockCode, int price, int count) {
-		_broker->buy(stockCode, price, count);
-	}
-	bool sell(string stockCode, int price, int count) {
-		_broker->sell(stockCode, price, count);
-	}
-	int getPrice(string stockCode) {
-		_broker->getPrice(stockCode);
-	}
+	bool buy(string item, int price, int count);
+	bool sell(string item, int price, int count);
+	int getPrice(string item);
 
 private:
 	StockBroker* _broker{ nullptr };
 };
+
+void TradingSystem::selectStockBrocker(StockBroker* broker)
+{
+	_broker = broker;
+}
