@@ -6,27 +6,28 @@
 class KiwerDriver : public StockBroker
 {
 private:
-	KiwerAPI* kiwerAPI;
+	KiwerAPI kiwerAPI;
 
 public:
-	KiwerDriver(KiwerAPI* kiwerAPI)
+	KiwerDriver()
 	{
-		this->kiwerAPI = kiwerAPI;
+
 	}
+
 	void login(std::string id, std::string pw) override
 	{
-		kiwerAPI->login(id, pw);
+		kiwerAPI.login(id, pw);
 	}
 	void buy(std::string stockCode, int price, int count) override
 	{
-		kiwerAPI->buy(stockCode, price, count);
+		kiwerAPI.buy(stockCode, price, count);
 	}
 	void sell(std::string stockCode, int price, int count) override
 	{
-		kiwerAPI->sell(stockCode, price, count);
+		kiwerAPI.sell(stockCode, price, count);
 	}
 	int getPrice(std::string stockCode) override
 	{
-		kiwerAPI->currentPrice(stockCode);
+		kiwerAPI.currentPrice(stockCode);
 	}
 };
