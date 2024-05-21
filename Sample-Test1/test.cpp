@@ -3,6 +3,8 @@
 #include "gtest/gtest.h"
 #include "../TradingSystem/TradingSystem.cpp"
 
+using namespace testing;
+
 class MockDriver : public StockBroker
 {
 public:
@@ -18,3 +20,16 @@ TEST(TradingSystem, SelectStockBroker) {
 
 	system.selectStockBroker(driver);
 }
+
+class TradingSystemFixture : public Test {
+public:
+	void SetUp() override {
+		system.selectStockBroker(&STOCK_BROKER);
+	}
+
+	const string STOCK_NAME = "NONAME";
+	const int STOCK_PRICE = 1000;
+
+	TradingSystem system;
+	MockDriver STOCK_BROKER;
+};
