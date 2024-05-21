@@ -18,7 +18,7 @@ public:
 	}
 	int getPrice(std::string stockCode)
 	{
-		Nemo.getMarketPrice(stockCode, 0);
+		return Nemo.getMarketPrice(stockCode, 0);
 	}
 private:
 	NemoAPI Nemo;
