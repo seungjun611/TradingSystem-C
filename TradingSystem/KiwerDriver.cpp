@@ -28,6 +28,7 @@ public:
 	}
 	int getPrice(std::string stockCode) override
 	{
-		kiwerAPI.currentPrice(stockCode);
+		int retPrice = kiwerAPI.currentPrice(stockCode);
+		return retPrice;
 	}
 };
